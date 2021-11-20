@@ -12,7 +12,9 @@ namespace DockedVehicleStorageAccess
 #if !BELOWZERO
 		public static Config config;
 #else
+#pragma warning disable IDE1006 // Naming Styles
 		public static Config config { get; } = OptionsPanelHandler.RegisterModOptions<Config>();
+#pragma warning restore IDE1006 // Naming Styles
 #endif
 
 		private static string modDirectory;

@@ -19,7 +19,9 @@ namespace DockedVehicleStorageAccess.Patches
 		private static bool requestingPrefab;
 
 		[HarmonyPatch("Start")]
+#pragma warning disable IDE0051 // Remove unused private members
 		private static void Postfix(VehicleDockingBay __instance)
+#pragma warning restore IDE0051 // Remove unused private members
 		{
 			// in SN1, VehicleDockingBay.subRoot will either be of type BaseRoot, if the docking bay in question is in a habitat, or of SubRoot, if it's in a Cyclops.
 			// But subRoot always seems to be Null in BZ, so something else needs to be done
@@ -43,7 +45,9 @@ namespace DockedVehicleStorageAccess.Patches
 #endif
 		}
 
+#pragma warning disable IDE0051 // Remove unused private members
 		private static IEnumerator CreateConsole(VehicleDockingBay __instance)
+#pragma warning restore IDE0051 // Remove unused private members
 		{
 			if (prefab == null)
 			{

@@ -1,0 +1,9 @@
+C:\Users\Jonasz\Downloads\SubnauticaModSystem-master\SubnauticaModSystem\DockedVehicleStorageAccess\obj\BZ\DockedVehicleStorageAccess.Properties.Resources.resources
+C:\Users\Jonasz\Downloads\SubnauticaModSystem-master\SubnauticaModSystem\DockedVehicleStorageAccess\obj\BZ\DockedVehicleStorageAccess.csproj.GenerateResource.cache
+C:\Users\Jonasz\Downloads\SubnauticaModSystem-master\SubnauticaModSystem\DockedVehicleStorageAccess\obj\BZ\DockedVehicleStorageAccess.csproj.CoreCompileInputs.cache
+C:\Users\Jonasz\Downloads\SubnauticaModSystem-master\SubnauticaModSystem\DockedVehicleStorageAccessSML\BZ\mod_BZ.json
+C:\Users\Jonasz\Downloads\SubnauticaModSystem-master\SubnauticaModSystem\DockedVehicleStorageAccessSML\BZ\mod_SN1.json
+C:\Users\Jonasz\Downloads\SubnauticaModSystem-master\SubnauticaModSystem\DockedVehicleStorageAccessSML\BZ\DockedVehicleStorageAccessSML.dll
+C:\Users\Jonasz\Downloads\SubnauticaModSystem-master\SubnauticaModSystem\DockedVehicleStorageAccess\obj\BZ\DockedVehicleStorageAccess.csproj.CopyComplete
+C:\Users\Jonasz\Downloads\SubnauticaModSystem-master\SubnauticaModSystem\DockedVehicleStorageAccess\obj\BZ\DockedVehicleStorageAccessSML.dll
+C:\Users\Jonasz\Downloads\SubnauticaModSystem-master\SubnauticaModSystem\DockedVehicleStorageAccess\obj\BZ\DockedVehicleStorageAccess.csproj.AssemblyReference.cache

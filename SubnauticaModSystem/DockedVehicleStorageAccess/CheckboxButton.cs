@@ -34,11 +34,6 @@ namespace DockedVehicleStorageAccess
 		private Sprite checkedSprite = null;
 		private Sprite uncheckedSprite = null;
 
-		private void Awake()
-		{
-			rectTransform = transform as RectTransform;
-		}
-
 		public void OnPointerClick(PointerEventData eventData)
 		{
 			if (isEnabled)

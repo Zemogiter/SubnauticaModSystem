@@ -41,7 +41,7 @@
     <DefineConstants>BZ;BELOWZERO</DefineConstants>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <Optimize>true</Optimize>
-    <GameDir>$(CommonDir)SubnauticaZero.Stable</GameDir>
+    <GameDir>$(CommonDir)SubnauticaZero</GameDir>
     <DataFolder>SubnauticaZero_Data</DataFolder>
     <SMLHelperFolder>SMLHelper_BZ</SMLHelperFolder>
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -150,6 +150,9 @@
     <Compile Include="SaveData.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\.editorconfig">
+      <Link>.editorconfig</Link>
+    </None>
     <None Include="mod_BZ.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

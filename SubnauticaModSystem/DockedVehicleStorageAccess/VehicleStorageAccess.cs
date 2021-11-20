@@ -43,7 +43,9 @@ namespace DockedVehicleStorageAccess
 #if SN1
 		private List<Vehicle> vehicles = new List<Vehicle>();
 #elif BZ
+#pragma warning disable IDE0044 // Add readonly modifier
 		private List<Dockable> vehicles = new List<Dockable>();
+#pragma warning restore IDE0044 // Add readonly modifier
 #endif
 
 		private bool transferringToAutosorter;
@@ -91,14 +93,18 @@ namespace DockedVehicleStorageAccess
 		private CheckboxButton autosortCheckbox;
 
 
+#pragma warning disable IDE0051 // Remove unused private members
 		private void Awake()
+#pragma warning restore IDE0051 // Remove unused private members
 		{
 			constructable = GetComponent<Constructable>();
 			container = gameObject.GetComponent<StorageContainer>();
 			subRoot = gameObject.GetComponentInParent<SubRoot>();
 		}
 
+#pragma warning disable IDE0051 // Remove unused private members
 		private IEnumerator Start()
+#pragma warning restore IDE0051 // Remove unused private members
 		{
 			while (true)
 			{
@@ -120,7 +126,9 @@ namespace DockedVehicleStorageAccess
 			}
 		}
 
+#pragma warning disable IDE0051 // Remove unused private members
 		private void OnDisable()
+#pragma warning restore IDE0051 // Remove unused private members
 		{
 			RemoveDockingBayListeners();
 			StopAllCoroutines();
@@ -183,10 +191,12 @@ namespace DockedVehicleStorageAccess
 		{
 			if (extractingItems)
 			{
+				Logger.Log("extracting items?");
 				yield break;
 			}
 			if (!enableCheckbox.toggled)
 			{
+				Logger.Log("checkbox not toggled?");
 				yield break;
 			}
 
@@ -233,6 +243,7 @@ namespace DockedVehicleStorageAccess
 					{
 						if (!enableCheckbox.toggled)
 						{
+							Logger.Log("enableCheckbox is not toggled");
 							break;
 						}
 
@@ -245,6 +256,7 @@ namespace DockedVehicleStorageAccess
 								if (extractingItems == false)
 								{
 									ErrorMessage.AddDebug("Extracting items from vehicle storage...");
+									Logger.Log("Extracting items from vehicle storage...");
 								}
 								extractedAnything = true;
 								extractingItems = true;
@@ -253,18 +265,21 @@ namespace DockedVehicleStorageAccess
 							else
 							{
 								couldNotAdd = true;
+								Logger.Log("couldnotAdd is true");
 								break;
 							}
 						}
 						else
 						{
 							couldNotAdd = true;
+							Logger.Log("couldnotAdd is true");
 							break;
 						}
 					}
 
 					if (couldNotAdd || !enableCheckbox.toggled)
 					{
+						Logger.Log("probably means it's full");
 						break;
 					}
 				}
@@ -273,6 +288,7 @@ namespace DockedVehicleStorageAccess
 			if (extractedAnything)
 			{
 				NotifyExtraction(extractionResults);
+				Logger.Log(extractionResults.ToString());
 			}
 			extractingItems = false;
 		}
@@ -316,7 +332,9 @@ namespace DockedVehicleStorageAccess
 
 			//QModManager.Utility.Logger.Log(QModManager.Utility.Logger.Level.Debug, $"GetSeamothStorage: running on dockable {dockable.name}; dockable.truckMotor = " + (dockable.truckMotor != null ? dockable.truckMotor.ToString() : "null"));
 			Equipment modules = null;
+#pragma warning disable CS0618 // Type or member is obsolete
 			if (dockable.vehicle is SeaMoth)
+#pragma warning restore CS0618 // Type or member is obsolete
 				modules = dockable.vehicle.modules;
 			else if (dockable.truckMotor != null)
 				modules = dockable.truckMotor.upgrades.modules;
@@ -462,7 +480,9 @@ namespace DockedVehicleStorageAccess
 				exosuitCount += (dockable is Exosuit ? 1 : 0);
 #elif BZ
 				var vehicle = dockable.vehicle;
+#pragma warning disable CS0618 // Type or member is obsolete
 				seamothCount += ((vehicle is SeaMoth || dockable.truckMotor != null) ? 1 : 0);
+#pragma warning restore CS0618 // Type or member is obsolete
 				exosuitCount += (vehicle is Exosuit ? 1 : 0);
 #endif
 			}
@@ -491,7 +511,9 @@ namespace DockedVehicleStorageAccess
 			}
 		}
 
+#pragma warning disable IDE0051 // Remove unused private members
 		private void Update()
+#pragma warning restore IDE0051 // Remove unused private members
 		{
 			if (!initialized && constructable._constructed && transform.parent != null)
 			{
@@ -530,13 +552,13 @@ namespace DockedVehicleStorageAccess
 			seamothIcon.sprite = ImageUtils.LoadSprite(Mod.GetAssetPath("Seamoth.png"));
 			exosuitIcon.sprite = ImageUtils.LoadSprite(Mod.GetAssetPath("Exosuit.png"));
 
-			enableCheckbox.toggled = saveData != null ? saveData.Enabled : true;
+			enableCheckbox.toggled = saveData == null || saveData.Enabled;
 			enableCheckbox.transform.localPosition = new Vector3(0, -104);
 			enableCheckbox.Initialize();
 
 			if (Mod.config.UseAutosortMod)
 			{
-				autosortCheckbox.toggled = saveData != null ? saveData.Autosort : true;
+				autosortCheckbox.toggled = saveData == null || saveData.Autosort;
 				autosortCheckbox.transform.localPosition = new Vector3(0, -104 + 19);
 				autosortCheckbox.Initialize();
 			}

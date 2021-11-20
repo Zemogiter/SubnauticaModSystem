@@ -23,13 +23,17 @@ namespace DockedVehicleStorageAccess
 
 	class MoonpoolTerminalController : MonoBehaviour, IProtoEventListener
 	{
+#pragma warning disable IDE0044 // Add readonly modifier
 		private static Vector3[] Positions = {
+#pragma warning restore IDE0044 // Add readonly modifier
 			new Vector3(4.96f, 1.4f, 3.23f),
 			new Vector3(-4.96f, 1.4f, 3.23f),
 			new Vector3(-4.96f, 1.4f, -3.23f),
 			new Vector3(4.96f, 1.4f, -3.23f)
 		};
+#pragma warning disable IDE0044 // Add readonly modifier
 		private static float[] Angles = {
+#pragma warning restore IDE0044 // Add readonly modifier
 			42.5f,
 			-42.5f,
 			180 + 42.5f,
@@ -38,9 +42,13 @@ namespace DockedVehicleStorageAccess
 
 		private MoonpoolTerminalSaveData saveData;
 		private int positionIndex;
+#pragma warning disable IDE0044 // Add readonly modifier
 		private List<CheckboxButton> positionButtons = new List<CheckboxButton>();
+#pragma warning restore IDE0044 // Add readonly modifier
 
+#pragma warning disable IDE0051 // Remove unused private members
 		private void Awake()
+#pragma warning restore IDE0051 // Remove unused private members
 		{
 			Vector2 buttonPositionCenter = new Vector2(0, 0);
 			int buttonSpacing = 104;
@@ -125,9 +133,10 @@ namespace DockedVehicleStorageAccess
 
 		private MoonpoolTerminalSaveData CreateSaveData()
 		{
-			MoonpoolTerminalSaveData saveData = new MoonpoolTerminalSaveData();
-
-			saveData.Position = positionIndex;
+			MoonpoolTerminalSaveData saveData = new MoonpoolTerminalSaveData
+			{
+				Position = positionIndex
+			};
 
 			return saveData;
 		}
