@@ -5,6 +5,12 @@ using System.Linq;
 using System.Text;
 using UnityEngine;
 using UnityEngine.UI;
+#if SUBNAUTICA
+    using RecipeData = SMLHelper.V2.Crafting.TechData;
+    using Sprite = Atlas.Sprite;
+#elif BELOWZERO
+using TMPro;
+#endif
 
 namespace CustomBeacons
 {
@@ -23,8 +29,9 @@ namespace CustomBeacons
 			if (icon == null)
 			{
 				var entry = GetComponent<uGUI_PingEntry>();
-				icon = entry.icon;
-				label = entry.label;
+				entry.GetComponents<TextMeshProUGUI>();
+				icon = entry.GetComponent<uGUI_Icon>();
+				label = entry.label.GetComponent<Text>();
 			}
 
 			if (colorButton == null)
@@ -60,7 +67,7 @@ namespace CustomBeacons
 
 		public void OnInitialize(int id, PingType type, int colorIndex)
 		{
-			ping = PingManager.Get(id);
+			ping = PingManager.Get(id.ToString());
 			Initialize();
 		}
 

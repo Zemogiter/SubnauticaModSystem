@@ -8,6 +8,12 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using UnityEngine;
+#if SUBNAUTICA
+    using RecipeData = SMLHelper.V2.Crafting.TechData;
+    using Sprite = Atlas.Sprite;
+#elif BELOWZERO
+using TMPro;
+#endif
 
 namespace CustomBeacons.Patches
 {
@@ -16,7 +22,7 @@ namespace CustomBeacons.Patches
 	[HarmonyPatch(new Type[] { typeof(SpriteManager.Group), typeof(string) })]
 	class SpriteManager_Get_Patch
 	{
-		private static bool Prefix(ref Atlas.Sprite __result, SpriteManager.Group group, string name)
+		private static bool Prefix(ref AtlasPopulationMode __result, SpriteManager.Group group, string name)
 		{
 			if (group == SpriteManager.Group.Pings)
 			{
@@ -136,7 +142,7 @@ namespace CustomBeacons.Patches
 
 			foreach (var entry in pings)
 			{
-				var ping = PingManager.Get(entry.Key);
+				var ping = PingManager.Get(entry.Key.ToString());
 				var guiPing = entry.Value;
 
 				guiPing.SetColor(CustomPings.GetColor(ping.colorIndex));

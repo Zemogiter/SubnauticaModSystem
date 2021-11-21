@@ -1,6 +1,7 @@
 ﻿using Common.Mod;
 using Common.Utility;
 using System;
+using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -33,11 +34,12 @@ namespace CustomBeacons
 
 		public void Initialize(int id, Color color, bool toggled, Sprite imageSprite)
 		{
-			var sprite = new Atlas.Sprite(imageSprite);
-			Initialize(id, color, toggled, sprite);
+			var sprite = new AtlasPopulationMode();
+			//imageSprite this used to go to the line above in AtlasPopulationMode, removed because it gave me the "does not contain a constructor that takes '1' arguments" error
+			//Initialize(id, color, toggled, sprite);
 		}
 
-		public void Initialize(int id, Color color, bool toggled, Atlas.Sprite imageSprite)
+		public PickerButton (int id, Color color, bool toggled, Sprite imageSprite)
 		{
 			this.id = id;
 			this.toggled = toggled;

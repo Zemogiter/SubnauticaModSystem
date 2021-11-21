@@ -7,7 +7,13 @@ using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 using UnityEngine;
-using Oculus.Newtonsoft.Json;
+using Newtonsoft.Json;
+#if SUBNAUTICA
+    using RecipeData = SMLHelper.V2.Crafting.TechData;
+    using Sprite = Atlas.Sprite;
+#elif BELOWZERO
+using TMPro;
+#endif
 
 namespace CustomBeacons
 {
@@ -31,8 +37,8 @@ namespace CustomBeacons
 			Mod.modDirectory = modDirectory ?? "Subnautica_Data/Managed";
 			LoadConfig();
 
-			HarmonyInstance harmony = HarmonyInstance.Create("com.CustomBeacons.mod");
-			harmony.PatchAll(Assembly.GetExecutingAssembly());
+			//Harmony harmony = Harmony.CreateAndPatchAll("com.CustomBeacons.mod");
+			new Harmony("com.CustomBeacons.mod").PatchAll(Assembly.GetExecutingAssembly());
 
 			foreach (var color in colorInfo.Colors)
 			{
@@ -55,7 +61,8 @@ namespace CustomBeacons
 			{
 				var name = Path.GetFileNameWithoutExtension(file);
 				name = name.SubstringFromOccuranceOf("_", 0);
-				CustomPings.AddPingType(pingIndex, name, new Atlas.Sprite(ImageUtils.LoadSprite(file, new Vector2(0.5f, 0.5f))));
+				CustomPings.AddPingType(pingIndex, name, sprite: new AtlasPopulationMode());
+				//ImageUtils.LoadSprite(file, new Vector2(0.5f, 0.5f))) this used to go one line above, keeping just in case
 
 				pingIndex++; 
 			}

@@ -174,7 +174,7 @@ namespace CustomBeacons
 		protected static void Create(Transform parent, Picker instance, int buttonCount)
 		{
 			var lockerPrefab = Resources.Load<GameObject>("Submarine/Build/SmallLocker");
-			var textPrefab = Instantiate(lockerPrefab.GetComponentInChildren<Text>());
+			var textPrefab = Instantiate(lockerPrefab.GetComponentInChildren<TMPro.TextMeshProUGUI>());
 			textPrefab.fontSize = 16;
 			textPrefab.color = ScreenContentColor;
 
@@ -191,7 +191,7 @@ namespace CustomBeacons
 			instance.background.type = Image.Type.Sliced;
 			instance.background.rectTransform.anchoredPosition = new Vector2(0, -20);
 
-			instance.pageText = LockerPrefabShared.CreateText(instance.transform, textPrefab, Color.white, 0, 10, "X/X");
+			instance.pageText = LockerPrefabShared.CreateText(instance.transform, textPrefab, Color.white, 0, 10, "X/X").GetComponent<Text>();
 			RectTransformExtensions.SetSize(instance.pageText.rectTransform, 30, 20);
 
 			for (int i = 0; i < buttonCount; ++i)

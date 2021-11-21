@@ -3,6 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using UnityEngine;
+#if SUBNAUTICA
+    using RecipeData = SMLHelper.V2.Crafting.TechData;
+    using Sprite = Atlas.Sprite;
+#elif BELOWZERO
+using TMPro;
+#endif
 
 namespace CustomBeacons
 {
@@ -14,8 +20,8 @@ namespace CustomBeacons
 
 		private static Dictionary<int, string> PingNamesByType = new Dictionary<int, string>();
 		private static Dictionary<string, int> PingTypesByName = new Dictionary<string, int>();
-		private static Dictionary<int, Atlas.Sprite> PingSpritesByType = new Dictionary<int, Atlas.Sprite>();
-		private static Dictionary<string, Atlas.Sprite> PingSpritesByName = new Dictionary<string, Atlas.Sprite>();
+		private static Dictionary<int, AtlasPopulationMode> PingSpritesByType = new Dictionary<int, AtlasPopulationMode>();
+		private static Dictionary<string, AtlasPopulationMode> PingSpritesByName = new Dictionary<string, AtlasPopulationMode>();
 		
 		private static bool initialized;
 		private static Dictionary<PingType, string> stringCache;
@@ -24,7 +30,7 @@ namespace CustomBeacons
 		private static List<Color> customPingColors = new List<Color>(originalPingColors);
 
 		public static Dictionary<int, string> CustomPingNames { get => PingNamesByType; }
-		public static Dictionary<int, Atlas.Sprite> CustomPingSprites { get => PingSpritesByType; }
+		public static Dictionary<int, AtlasPopulationMode> CustomPingSprites { get => PingSpritesByType; }
 		public static List<Color> CustomPingColors { get => customPingColors; }
 
 		public static void Initialize()
@@ -54,7 +60,7 @@ namespace CustomBeacons
 			translationCache[pingType] = name;
 		}
 
-		public static void AddPingType(int type, string name, Atlas.Sprite sprite)
+		public static void AddPingType(int type, string name, AtlasPopulationMode sprite)
 		{
 			if (PingNamesByType.ContainsKey(type))
 			{
@@ -138,27 +144,27 @@ namespace CustomBeacons
 			return 0;
 		}
 
-		public static Atlas.Sprite GetSprite(int type)
+		public static AtlasPopulationMode GetSprite(int type)
 		{
-			if (PingSpritesByType.TryGetValue(type, out Atlas.Sprite sprite))
+			if (PingSpritesByType.TryGetValue(type, out AtlasPopulationMode sprite))
 			{
 				return sprite;
 			}
-			return null;
+			return 0;
 		}
 
-		public static Atlas.Sprite GetSprite(PingType type)
+		public static AtlasPopulationMode GetSprite(PingType type)
 		{
 			return GetSprite((int)type);
 		}
 
-		public static Atlas.Sprite GetSprite(string name)
+		public static AtlasPopulationMode GetSprite(string name)
 		{
-			if (name != null && PingSpritesByName.TryGetValue(name, out Atlas.Sprite sprite))
+			if (name != null && PingSpritesByName.TryGetValue(name, out AtlasPopulationMode sprite))
 			{
 				return sprite;
 			}
-			return null;
+			return 0;
 		}
 	}
 }

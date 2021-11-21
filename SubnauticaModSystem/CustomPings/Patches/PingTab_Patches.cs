@@ -5,6 +5,12 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using UnityEngine.UI;
+#if SUBNAUTICA
+    using RecipeData = SMLHelper.V2.Crafting.TechData;
+    using Sprite = Atlas.Sprite;
+#elif BELOWZERO
+using TMPro;
+#endif
 
 namespace CustomBeacons.Patches
 {
@@ -41,7 +47,7 @@ namespace CustomBeacons.Patches
 			}
 			controller.OnInitialize(id, type, colorIndex);
 
-			__instance.icon.sprite = SpriteManager.Get(SpriteManager.Group.Pings, PingManager.sCachedPingTypeStrings.Get(type));
+			//__instance.icon.sprite = SpriteManager.Get(SpriteManager.Group.Pings, PingManager.sCachedPingTypeStrings.Get(type));
 			__instance.icon.color = CustomPings.GetColor(colorIndex);
 			return false;
 		}
@@ -87,9 +93,9 @@ namespace CustomBeacons.Patches
 			{
 				var id = entry.Key;
 				var pingEntry = entry.Value;
-				var pingInstance = PingManager.Get(id);
+				var pingInstance = PingManager.Get(id.ToString());
 
-				pingEntry.icon.sprite = SpriteManager.Get(SpriteManager.Group.Pings, PingManager.sCachedPingTypeStrings.Get(pingInstance.pingType));
+				pingEntry.icon.useGUILayout = SpriteManager.Get(SpriteManager.Group.Pings, PingManager.sCachedPingTypeStrings.Get(pingInstance.pingType));
 				pingEntry.icon.color = CustomPings.GetColor(pingInstance.colorIndex);
 				pingEntry.UpdateLabel(pingInstance.pingType, pingInstance.GetLabel());
 				pingEntry.visibility.isOn = pingInstance.visible;
