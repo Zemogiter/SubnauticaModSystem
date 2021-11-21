@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
@@ -212,7 +212,7 @@ namespace DockedVehicleStorageAccess
 				var vehicleContainers = vehicle.gameObject.GetComponentsInChildren<StorageContainer>().Select((x) => x.container).ToList();
 				vehicleContainers.AddRange(GetSeamothStorage(vehicle));
 #elif BZ
-			foreach (Dockable dockable in vehicles)
+			foreach (Dockable dockable in vehicles.ToList())
 			{
 				if (dockable.gameObject == null)
 					continue;
@@ -243,7 +243,7 @@ namespace DockedVehicleStorageAccess
 					{
 						if (!enableCheckbox.toggled)
 						{
-							Logger.Log("enableCheckbox is not toggled");
+							//Logger.Log("enableCheckbox is not toggled");
 							break;
 						}
 
@@ -265,21 +265,21 @@ namespace DockedVehicleStorageAccess
 							else
 							{
 								couldNotAdd = true;
-								Logger.Log("couldnotAdd is true");
+								//Logger.Log("couldnotAdd is true");
 								break;
 							}
 						}
 						else
 						{
 							couldNotAdd = true;
-							Logger.Log("couldnotAdd is true");
+							//Logger.Log("couldnotAdd is true");
 							break;
 						}
 					}
 
 					if (couldNotAdd || !enableCheckbox.toggled)
 					{
-						Logger.Log("probably means it's full");
+						Logger.Log("DVSA/SA is full");
 						break;
 					}
 				}
