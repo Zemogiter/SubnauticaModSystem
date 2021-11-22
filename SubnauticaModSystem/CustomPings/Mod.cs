@@ -62,7 +62,7 @@ namespace CustomBeacons
 				var name = Path.GetFileNameWithoutExtension(file);
 				name = name.SubstringFromOccuranceOf("_", 0);
 				CustomPings.AddPingType(pingIndex, name, sprite: new AtlasPopulationMode());
-				//ImageUtils.LoadSprite(file, new Vector2(0.5f, 0.5f))) this used to go one line above, keeping just in case
+				ImageUtils.LoadSprite(file, new Vector2(0.5f, 0.5f))) this used to go one line above, keeping just in case
 
 				pingIndex++; 
 			}
