@@ -2,12 +2,14 @@
 using Common.Utility;
 using HarmonyLib;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 using UnityEngine;
 using Newtonsoft.Json;
+using QModManager.API;
+using SMLHelper.V2.Handlers;
+using SMLHelper.V2.Json;
 #if SUBNAUTICA
     using RecipeData = SMLHelper.V2.Crafting.TechData;
     using Sprite = Atlas.Sprite;
@@ -25,19 +27,26 @@ namespace CustomBeacons
 
 	static class Mod
 	{
+#if !BELOWZERO
+		public static Config config;
+#else
+#pragma warning disable IDE1006 // Naming Styles
+		public static Config config { get; } = OptionsPanelHandler.RegisterModOptions<Config>();
+#pragma warning restore IDE1006 // Naming Styles
+#endif
 		private const int StartingPingIndex = 100;
 
-		public static Config config;
 		public static ColorInfo colorInfo;
 
 		private static string modDirectory;
 
 		public static void Patch(string modDirectory = null)
 		{
+			Logger.Log("Starting patching");
+
 			Mod.modDirectory = modDirectory ?? "Subnautica_Data/Managed";
 			LoadConfig();
 
-			//Harmony harmony = Harmony.CreateAndPatchAll("com.CustomBeacons.mod");
 			new Harmony("com.CustomBeacons.mod").PatchAll(Assembly.GetExecutingAssembly());
 
 			foreach (var color in colorInfo.Colors)
@@ -62,7 +71,7 @@ namespace CustomBeacons
 				var name = Path.GetFileNameWithoutExtension(file);
 				name = name.SubstringFromOccuranceOf("_", 0);
 				CustomPings.AddPingType(pingIndex, name, sprite: new AtlasPopulationMode());
-				ImageUtils.LoadSprite(file, new Vector2(0.5f, 0.5f))) this used to go one line above, keeping just in case
+				ImageUtils.LoadSprite(file, new Vector2(0.5f, 0.5f)); //this used to go one line above, keeping just in case
 
 				pingIndex++; 
 			}
@@ -77,50 +86,12 @@ namespace CustomBeacons
 		{
 			return GetModPath() + "/Assets/" + filename;
 		}
-
-		private static string GetModInfoPath()
-		{
-			return GetModPath() + "/mod.json";
-		}
-
+				
 		private static void LoadConfig()
 		{
-			config = ModUtils.LoadConfig<Config>(GetModInfoPath());
-			ValidateConfig();
-
-			LoadCustomColors();
-		}
-
-		private static void LoadCustomColors()
-		{
-			var colorInfoPath = GetAssetPath("colors.json");
-			if (File.Exists(colorInfoPath))
-			{
-				try
-				{
-					colorInfo = JsonConvert.DeserializeObject<ColorInfo>(File.ReadAllText(colorInfoPath));
-				}
-				catch (Exception)
-				{
-					colorInfo = new ColorInfo();
-					Logger.Error("Could not load colors.json! Check to make sure its JSON is valid.");
-				}
-			}
-			else
-			{
-				colorInfo = new ColorInfo();
-				File.WriteAllText(colorInfoPath, JsonConvert.SerializeObject(colorInfo, Formatting.Indented));
-			}
-		}
-
-		private static void ValidateConfig()
-		{
-			Config defaultConfig = new Config();
-			if (config == null)
-			{
-				config = defaultConfig;
-				return;
-			}
+#if !BELOWZERO
+			config = ModUtils.LoadConfig<Config>(GetModPath() + "/config.json");
+#endif	
 		}
 	}
 }
